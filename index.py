@@ -7,7 +7,6 @@ saldo_atual = 0
 saldo_inicial = 0
 qtd_dep_realizados = 0
 valor_total_dep_realizados = 0
-taxa_de_juros = 0
 qtd_saques_realizados = 0
 valor_total_saques_realizados = 0
 valor_total_juros_recebidos = 0
@@ -74,7 +73,7 @@ def option_1():
         # Mostra saldo atual após depósito
         print("Saldo atual: ", saldo_atual)
 
-        # Contabiliza o depósito para a variável de total depósitos
+        # Contabiliza o depósito para a variável total depósitos
         global qtd_dep_realizados
         qtd_dep_realizados += 1
 
@@ -102,11 +101,11 @@ def option_2():
         # Chama a variável global saldo atual
         global saldo_atual
 
-        # Mostra saldo atual antes do saque
-        print("Saldo anterior: ", saldo_atual)
-
         # Verifica se saldo atual é maior que saque
         if saldo_atual >= valor_saque:
+
+            # Mostra saldo antes do saque
+            print("Saldo anterior: ", saldo_atual)
 
             # Chama variável global valor total de saques realizados
             global valor_total_saques_realizados
@@ -145,24 +144,32 @@ def option_2():
 def option_3():
     print('\n..:: Aplicar Juros ::..\n')
 
+    # Solicita usuário informe o valor da taxa de juros
     taxa_juros = float(input(print("Digite o valor da taxa de juros: ")))
 
+    # Verifica se foi digitado um número válido
     if (type(taxa_juros) == int or type(taxa_juros) == float) and taxa_juros > 0:
-        global taxa_de_juros
-        taxa_de_juros = taxa_juros
 
+        # Chama global saldo atual
         global saldo_atual
 
         # Mostra saldo atual antes do saque
         print("Saldo anterior: ", saldo_atual)
 
-        saldo_atual2 = (saldo_atual * (1 + taxa_de_juros / 100))
+        # Calcula saldo com taxa de juros aplicada
+        saldo = (saldo_atual * (1 + taxa_juros / 100))
 
-        total_juros = saldo_atual2 - saldo_atual
+        # Calcula o valor total de juros
+        total_juros = saldo - saldo_atual
+
+        # Soma valor total de juros global
         global valor_total_juros_recebidos
         valor_total_juros_recebidos += total_juros
 
-        saldo_atual = saldo_atual2
+        # Atualiza saldo atual
+        saldo_atual = saldo
+
+        # Chama funçãod e saldo máximo
         saldo_maximo()
 
         # Mostra saldo atual antes do saque
@@ -171,84 +178,120 @@ def option_3():
         print("Saldo atual: ", saldo_atual)
 
     else:
+        # Mensagem de erro caso valor digitado seja inválido
         print("Valor inválido!")
 
 
+# Função da opção 4 do menu
 def option_4():
     print('\nSimular Empréstimo: 4\n')
 
+    # Solicita valores ao usuário
     valor_emprestimo = float(input(print("Digite o valor do empréstimo: ")))
     taxa_juros = float(input(print("Digite o valor da taxa de juros: ")))
     parcelas = int(input(print("Digite o total de parcelas para pagamento: ")))
 
+    # Verifica se valor empréstimo digitado é valido
     if (type(valor_emprestimo) == int or type(valor_emprestimo) == float) and valor_emprestimo > 0:
+        # Verifica se taxa de juros digitado é valido
         if (type(taxa_juros) == int or type(taxa_juros) == float) and taxa_juros > 0:
+            # Verifica se o valor de parcelas digitado é valido
             if type(parcelas) == int and parcelas > 0:
                 # Mostra saldo atual antes do saque
                 print("Juros aplicado: ", taxa_juros)
 
+                # Calcula montante
                 montante = valor_emprestimo * ((1 + taxa_juros / 100) ** parcelas)
+
+                # Calcula valor da parcela
                 valor_parcela = montante / parcelas
+
+                # Calcula o valor total de juros
                 juros = montante - valor_emprestimo
 
+                # Mostra as informações na tela
                 print("O valor da parcela foi de: " + str("R$ %.2f" % valor_parcela))
                 print("O montante final foi de: " + str("R$ %.2f" % montante))
                 print("Os juros foram de: " + str("R$ %.2f" % juros))
             else:
+                # Mensagem de erro caso parcela digitada seja inválida
                 print("Parcela inválida")
         else:
+            # Mensagem de erro caso juros digitados seja inválida
             print("Juros inválido!")
     else:
+        # Mensagem de erro caso valor digitado seja inválida
         print("Valor inválido")
 
 
+# Função da opção 5 do menu
 def option_5():
     print('\nExtrato: 5\n')
+
+    # Mostra nome do cliente
     global nome_do_cliente
     print("Nome do Cliente: ", nome_do_cliente)
+
+    # Mostra saldo inicial
     global saldo_inicial
     print("Seu saldo inicial: ", saldo_inicial)
+
+    # Mostra o saldo atual
     global saldo_atual
     print("Seu saldo atual: ", saldo_atual)
+
+    # Mostra qtd de dep realizados
     global qtd_dep_realizados
     print("Depósitos realizados: ", qtd_dep_realizados)
+
+    # Mostra valor total de dep realizados
     global valor_total_dep_realizados
     print("Valor total depósitos realizados: ", valor_total_dep_realizados)
+
+    # Mostra qtd de saques realizados
     global qtd_saques_realizados
     print("Saques realizados: ", qtd_saques_realizados)
+
+    # Mostra valor total de saques realizados
     global valor_total_saques_realizados
     print("Valor total saques realizados: ", valor_total_saques_realizados)
+
+    # Mostra valor total de juros recebidos
     global valor_total_juros_recebidos
     print("Valor total juros recebidos: ", valor_total_juros_recebidos)
+
+    # Mostra o saldo mínimo da conta
     global saldo_min_conta
     print("Saldo mínimo da conta: ", saldo_min_conta)
+
+    # Mostra o saldo máximo da conta
     global saldo_max_conta
     print("Saldo máximo da conta: ", saldo_max_conta)
 
 
-# qtd_dep_realizados = 0
-# valor_total_dep_realizados = 0
-# taxa_de_juros = 0
-# valor_total_saques_realizados = 0
-# valor_total_juros_recebidos = 0
-# saldo_min_conta = 0
-# saldo_max_conta = 0
+# Função que define saldo mínimo da conta
 def saldo_minimo():
+    # Chama variáveis globais
     global saldo_min_conta
     global saldo_atual
 
+    # Condicional que define se saldo atual é o saldo mínimo da conta
     if saldo_atual < saldo_min_conta:
         saldo_min_conta = saldo_atual
 
 
+# Função que define saldo máximo da conta
 def saldo_maximo():
+    # Chama variáveis globais
     global saldo_max_conta
     global saldo_atual
 
+    # Condicional que define se saldo atual é o saldo máximo da conta
     if saldo_atual > saldo_max_conta:
         saldo_max_conta = saldo_atual
 
 
+# Função que define saldos min e max com o valor do saldo atual
 def saldos_min_max_inicial():
     global saldo_min_conta
     global saldo_max_conta
@@ -257,25 +300,32 @@ def saldos_min_max_inicial():
     saldo_max_conta = saldo_atual
 
 
+# Função que mostra notas que serão liberadas, passando o valor do saque como parâmetro
 def notas(valor_saque):
+    # Define quantas notas de 100 serão liberadas
     cem = int(valor_saque / 100)
     valor_saque = valor_saque - (cem * 100)
 
+    # Define quantas notas de 50 serão liberadas
     cinquenta = int(valor_saque / 50)
     valor_saque = valor_saque - (cinquenta * 50)
 
+    # Define quantas notas de 20 serão liberadas
     vinte = int(valor_saque / 20)
     valor_saque = valor_saque - (vinte * 20)
 
+    # Define quantas notas de 10 serão liberadas
     dez = int(valor_saque / 10)
     valor_saque = valor_saque - (dez * 10)
 
+    # Define quantas notas de 5 serão liberadas
     cinco = int(valor_saque / 5)
     valor_saque = valor_saque - (cinco * 5)
 
+    # Define quantas notas de 2 serão liberadas
     dois = int(valor_saque / 2)
-    valor_saque = valor_saque - (dois * 2)
 
+    # Mostra resultado
     print('Notas R$100,00 = ', cem)
     print('Notas R$ 50,00 = ', cinquenta)
     print('Notas R$ 20,00 = ', vinte)
