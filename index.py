@@ -26,7 +26,7 @@ def menu():
     print('[9] Sair\n')
 
     # Solicita que usuário informe uma opção e guarda em variável
-    selecionado = input('Escolha uma opção: ')
+    selecionado = input(print('Escolha uma opção: '))
 
     # Retorna opção selecionada
     return selecionado
@@ -358,6 +358,7 @@ if __name__ == '__main__':
             print('\nSaindo...\n')
             exit()
         else:
-            print('\nOpção desconhecida!\n')
+            if not aberta_conta:
+                print('\nOpção desconhecida!\n')
 
         input('Pressione ENTER para continuar')
